@@ -11,35 +11,20 @@ import com.jomeva.formulariotarjeta.utils.CompressorBitmapImage
 
 
 class ImageProvider  {
-    lateinit var mContext: Context
-    var mstorage: StorageReference
-    var mUrl: Uri? = null
-    var index: Int = 0
+
+    var mstorage: StorageReference = FirebaseStorage.getInstance().reference
 
 
-    constructor() {
-        mstorage = FirebaseStorage.getInstance().reference
-    }
+    constructor()
 
 
     public fun save(context: Context, uri: String, name: String): UploadTask? {
-        Log.d("uriaggaa", "${uri}")
+        Log.d("imagen12", "-> ${uri}")
         val imageByte: ByteArray? =
             CompressorBitmapImage.getImage(context, uri, 500, 500)
+        Log.d("imagen13", "-> ${imageByte}")
         val storage = mstorage.child("images/").child(name)
         return imageByte?.let { storage.putBytes(it) }
-    }
-    public fun saveConsignaciones(context: Context, uri: String, name: String): UploadTask? {
-        Log.d("uriaggaa", "${uri}")
-        val imageByte: ByteArray? =
-            CompressorBitmapImage.getImage(context, uri, 500, 500)
-        val storage = mstorage.child("consignaciones/").child(name)
-        return imageByte?.let { storage.putBytes(it) }
-    }
-
-    public fun deleteFile(name: String): Task<Void> {
-        Log.d("borandoFile2", "${name}")
-        return mstorage.child("audioRecord/$name").delete()
     }
 
     public fun getStorage(): StorageReference {

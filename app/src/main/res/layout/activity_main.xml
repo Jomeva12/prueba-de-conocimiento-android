@@ -127,9 +127,6 @@
                 app:backgroundTint="#012267" />
         </LinearLayout>
 
-
-
-
     </androidx.cardview.widget.CardView>
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/cargando"

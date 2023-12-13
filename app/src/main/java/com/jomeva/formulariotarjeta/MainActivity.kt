@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -23,7 +24,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.documentfile.provider.DocumentFile
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.FirebaseApp
 import com.jomeva.formulariotarjeta.model.Tarjeta
 import com.jomeva.formulariotarjeta.provider.ImageProvider
 import com.jomeva.formulariotarjeta.provider.TarjetaProvider
@@ -46,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        FirebaseApp.initializeApp(this)
         mTarjetaProvider = TarjetaProvider()
         nombre = findViewById(R.id.nombre)
         numeroTarjeta = findViewById(R.id.numeroTarjeta)
@@ -78,12 +82,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun crearTarjeta(url: String) {
+        Log.d("imagen",url)
         var tarjeta = Tarjeta()
         tarjeta.numeroTarjeta = numeroTarjeta.text.toString()
         tarjeta.titular = nombre.text.toString()
         tarjeta.imagenUrl = url
         mTarjetaProvider.saveTarjeta(tarjeta).addOnSuccessListener {
+            Log.d("imagen2",url)
             cargando.visibility = View.GONE
+            nombre.setText("")
+            numeroTarjeta.setText("")
+            imagen.setImageResource(R.drawable.camera)
+            imagenUriTarjeta=null
             Toast.makeText(
                 this,
                 "Tarjeta guardada con éxito",
@@ -108,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
         if (!camposVacios) {
             cargando.visibility = View.VISIBLE
             saveImage()
@@ -123,15 +134,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveImage() {
+        Log.d("imagen10",imagenUriTarjeta.toString())
         val nombre = "${Date().time}.jpg"
         val fileImage = getPathFromUri(this, imagenUriTarjeta!!)
-
+        Log.d("imagen11",fileImage.toString())
         mImageProvider.save(this, fileImage!!, nombre)
             ?.addOnCompleteListener { task ->
+                Log.d("imagen3","url")
                 if (task.isSuccessful) {
+                    Log.d("imagen4","url")
                     val storageRef = mImageProvider.getStorage().child("images").child(nombre)
+                    Log.d("imagen5","url")
                     storageRef.downloadUrl.addOnSuccessListener { image ->
                         val url: String = image.toString()
+                        Log.d("imagen6",url)
                         crearTarjeta(url)
                     }.addOnFailureListener { exception ->
                         // Manejar la falla de obtener la URL de descarga
@@ -196,25 +212,23 @@ class MainActivity : AppCompatActivity() {
         return fileName
     }
     fun permisosImagenes() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.CAMERA
-                ) == PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_DENIED
-            ) {
-                val permisio = arrayOf<String>(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-                requestPermissions(permisio, CAMERA_PERMISSION_REQUEST_CODE)
-
-            } else {
-                openCamara()
-            }
+        Log.d("camara1","-z")
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_DENIED ||
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
+            Log.d("camara2","-z")
+            val permisio = arrayOf<String>(
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            Log.d("camara3","$permisio")
+            requestPermissions(permisio, CAMERA_PERMISSION_REQUEST_CODE)
 
         } else {
             openCamara()
@@ -223,6 +237,7 @@ class MainActivity : AppCompatActivity() {
     }
     var imagenUri: Uri? = null
     private fun openCamara() {
+        Log.d("camara","-z")
         val values = ContentValues()
         values.put(MediaStore.Images.Media.DESCRIPTION, "camara")
         imagenUri =
@@ -247,4 +262,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
     )
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // El usuario ha concedido el permiso de la cámara
+                openCamara()
+            } else {
+            }
+        }
+
+    }
+
 }
