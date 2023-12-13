@@ -15,6 +15,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.jomeva.formulariotarjeta.R
 import com.jomeva.formulariotarjeta.model.Tarjeta
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class TarjetaAdapter(
     options: FirestoreRecyclerOptions<Tarjeta?>?,
@@ -31,7 +32,7 @@ class TarjetaAdapter(
     ) {
         val titular= holder.itemView.findViewById<TextView>(R.id.titular)
         val numeroTarjeta = holder.itemView.findViewById<TextView>(R.id.numeroTarjeta)
-        val imagen = holder.itemView.findViewById<ImageView>(R.id.imagen)
+        val imagen = holder.itemView.findViewById<CircleImageView>(R.id.imagen)
         titular.text=mTarjeta.titular
         numeroTarjeta.text=mTarjeta.numeroTarjeta
        val img=mTarjeta.imagenUrl
