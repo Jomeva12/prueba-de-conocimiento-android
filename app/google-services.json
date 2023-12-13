@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "178057138624",
+    "project_id": "formulariotarjeta-7049c",
+    "storage_bucket": "formulariotarjeta-7049c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178057138624:android:fa27e1e060859518d83825",
+        "android_client_info": {
+          "package_name": "com.jomeva.formulariotarjeta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5RjhVb83PvymSFTZkPFRSFt0F_R2x8ww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

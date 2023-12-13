@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/botonMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/menu_24"
+        app:backgroundTint="@color/white"
+        />
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="top"
+        android:background="@color/azulOscuro"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:textStyle="bold"
+        android:textSize="35dp"
+        android:text="Prueba Técnica"/>
+</FrameLayout>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="560dp"
+        android:layout_gravity="top"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="30dp"
+        android:elevation="30dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="Datos de tarjeta"
+                android:textColor="#98A5AA"
+                android:textSize="35dp" />
+
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/boton_azul_redondo"
+                android:drawablePadding="16dp"
+                android:hint="Nombre titular"
+                android:text="Nombre"
+                android:padding="10dp"
+                android:textColor="#98A5AA"
+                android:textColorHint="#98A5AA"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/numeroTarjeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/boton_azul_redondo"
+                android:drawablePadding="16dp"
+                android:padding="10dp"
+                android:hint="Numero de tarjeta"
+                android:text="1234 5678 8978 4566"
+                android:textColor="#98A5AA"
+                android:textColorHint="#98A5AA"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subir foto de tarjeta"
+                android:layout_gravity="center"
+                android:textColor="#98A5AA"
+                android:textSize="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+            <ImageView
+                android:id="@+id/imagen"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@drawable/camera"/>
+
+
+            <Button
+                android:id="@+id/guardar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Guardar"
+                android:background="@drawable/boton_azul_redondo"
+                android:textColor="@color/white"
+                android:elevation="4dp"
+                app:backgroundTint="#012267" />
+        </LinearLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/cargando"
+        android:layout_width="300dp"
+        android:layout_height="205dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:elevation="20dp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="cargando_auth.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

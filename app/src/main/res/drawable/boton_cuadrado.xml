@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="0dp" /> <!-- Esto hace que los bordes sean cuadrados -->
+    <solid android:color="#FF5733" /> <!-- Cambia el color de fondo a tu elección -->
+</shape>
